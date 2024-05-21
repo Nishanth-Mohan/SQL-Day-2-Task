@@ -1,0 +1,38 @@
+CREATE TABLE courses (
+    Course_id INT PRIMARY KEY,
+    Course_Name VARCHAR(50),
+    Course_fee INT,
+    Duration INT
+);
+
+CREATE TABLE batch (
+    Batch_id INT PRIMARY KEY,
+    Course_id INT,
+    Start_Date DATE,
+    End_Date DATE,
+    FOREIGN KEY (Course_id) REFERENCES courses(Course_id)
+);
+
+CREATE TABLE mentor (
+    Mentor_id INT PRIMARY KEY,
+    Mentor_Name VARCHAR(50),
+    Mentor_email VARCHAR(50),
+    Mentor_phone INT,
+    Course_id INT,
+    Batch_id INT,
+    FOREIGN KEY (Course_id) REFERENCES courses(Course_id),
+    FOREIGN KEY (Batch_id) REFERENCES batch(Batch_id)
+);
+
+CREATE TABLE students (
+    Student_id INT PRIMARY KEY,
+    Student_Name VARCHAR(50),
+    Student_email VARCHAR(50),
+    Student_phone INT,
+    Course_id INT,
+    Batch_id INT,
+    Mentor_id INT,
+    FOREIGN KEY (Course_id) REFERENCES courses(Course_id),
+    FOREIGN KEY (Batch_id) REFERENCES batch(Batch_id),
+    FOREIGN KEY (Mentor_id) REFERENCES mentor(Mentor_id)
+);
